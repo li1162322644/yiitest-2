@@ -1,9 +1,13 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
+
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 /* @var $searchModel common\models\BlogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -18,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <a href="<?= Url::to(['site/index', 'id' => 1]) ?>">Yii Forum5 &raquo;</a>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -41,3 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+<script>
+    $(".btn").click(function(
+        alert(1);
+    ));
+</script>
