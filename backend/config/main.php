@@ -58,12 +58,12 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
+//            'enableStrictParsing' => true,//至少匹配一个rules规则
             'suffix' => '',
             'rules' => [
                 '/blog/<id:\d+>' => '/blog/view',
-                "<controller:\w+>/<action:\w+>/<id:\d+>"=>"<controller>/<action>",
-                "<controller:\w+>/<action:\w+>"=>"<controller>/<action>",
+                "<controller:\w+>/<action:\w+>/<id:\d+>" => "<controller>/<action>",
+                "<controller:\w+>/<action:\w+>" => "<controller>/<action>",
             ],
         ],
 
@@ -72,6 +72,9 @@ return [
                 'dmstr\web\AdminLteAsset' => [
                     'skin' => 'skin-red',
                 ],
+            ],
+            'assetMap' => [
+                'AdminLTE.min.css' => '@web/css/AdminLTE1.min.css',//替换google字体
             ],
         ],
 
