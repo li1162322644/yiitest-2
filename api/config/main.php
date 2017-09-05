@@ -21,9 +21,9 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'api\models\User',
             'enableAutoLogin' => true,
-            'enableSession'=>false,
+            'enableSession' => false,
             'loginUrl' => null,
         ],
         'session' => [
@@ -45,14 +45,27 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
-            'rules' => [
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => ['v1/goods']
-                ],
-            ],
-        ]
+            'enableStrictParsing' => false,
+            'rules' => require(__DIR__ . '/url-rules.php'),
+        ],
+        //自定义消息类型
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $code = $response->getStatusCode();
+                $msg = $response->statusText;
+                if ($code == 404) {
+                    !empty($response->data['message']) && $msg = $response->data['message'];
+                }
+
+                $data = ['code' => $code, 'msg' => $msg];
+                $code == 200 && $data['data'] = $response->data;
+
+                $response->data = $data;
+                $response->format = yii\web\Response::FORMAT_JSON;
+            },
+        ],
     ],
     'params' => $params,
 ];
