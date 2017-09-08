@@ -15,6 +15,20 @@ use yii\filters\VerbFilter;
  */
 class BlogController extends Controller
 {
+    //公共的图片上传
+    public function actions()
+    {
+        return [
+            'ueditor'=>[
+                'class' => 'common\widgets\ueditor\UeditorAction',
+            ],
+        ];
+    }
+
+    public function allowActions(){
+        return ['ueditor'];
+    }
+
     /**
      * @inheritdoc
      */
