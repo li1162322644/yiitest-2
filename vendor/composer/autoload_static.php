@@ -31,6 +31,7 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'm' => 
         array (
             'mdm\\admin\\' => 10,
+            'manks\\' => 6,
         ),
         'd' => 
         array (
@@ -90,6 +91,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'mdm\\admin\\' => 
         array (
             0 => __DIR__ . '/..' . '/mdmsoft/yii2-admin',
+        ),
+        'manks\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bailangzhan/yii2-webuploader',
         ),
         'dmstr\\' => 
         array (

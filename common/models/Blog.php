@@ -18,6 +18,7 @@ use Yii;
 class Blog extends \yii\db\ActiveRecord
 {
     public $category;
+    public $file;
 
     /**
      * @inheritdoc

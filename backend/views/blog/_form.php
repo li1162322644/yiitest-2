@@ -24,6 +24,11 @@ use common\models\Blog;
 
     <?= $form->field($model, 'category')->label('栏目')->checkboxList(Category::dropDownList()) ?>
 
+    <?php
+    echo $form->field($model, 'file')->widget('manks\FileInput', [
+    ]);
+    ?>
+
 
 
 

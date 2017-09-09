@@ -1294,5 +1294,41 @@
             "sdk",
             "storage"
         ]
+    },
+    {
+        "name": "bailangzhan/yii2-webuploader",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bailangzhan/yii2-webuploader.git",
+            "reference": "dcc6c5ed20f6b15ee46365d0b52167d96f69c566"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/bailangzhan/yii2-webuploader/dcc6c5ed20f6b15ee46365d0b52167d96f69c566.zip",
+            "reference": "dcc6c5ed20f6b15ee46365d0b52167d96f69c566",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": ">=2.0.4"
+        },
+        "time": "2017-08-17T06:22:57+00:00",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "manks\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "yii2-webuploader组件",
+        "keywords": [
+            "webuploader",
+            "yii2"
+        ]
     }
 ]

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\Upload;
 use common\models\BlogCategory;
 use Yii;
 use common\models\Blog;
@@ -9,6 +10,7 @@ use common\models\BlogSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * BlogController implements the CRUD actions for Blog model.
@@ -19,13 +21,14 @@ class BlogController extends Controller
     public function actions()
     {
         return [
-            'ueditor'=>[
+            'ueditor' => [
                 'class' => 'common\widgets\ueditor\UeditorAction',
             ],
         ];
     }
 
-    public function allowActions(){
+    public function allowActions()
+    {
         return ['ueditor'];
     }
 
@@ -151,6 +154,22 @@ class BlogController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionUpload()
+    {
+        try {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $model = new Upload();
+            $info = $model->upImage();
+            if ($info && is_array($info)) {
+                return $info;
+            } else {
+                return ['code' => 1, 'msg' => 'error'];
+            }
+        } catch (\Exception $e) {
+            return ['code' => 1, 'msg' => $e->getMessage()];
         }
     }
 }
