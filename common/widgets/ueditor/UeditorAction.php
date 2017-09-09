@@ -1,7 +1,8 @@
 <?php
+
 namespace common\widgets\ueditor;
 
-use Yii;
+use yii;
 use yii\base\Action;
 use yii\helpers\ArrayHelper;
 use common\widgets\ueditor\Uploader;
@@ -13,7 +14,7 @@ class UeditorAction extends Action
      * @var array
      */
     public $config = [];
-    
+
     public function init()
     {
         //close csrf
@@ -24,7 +25,7 @@ class UeditorAction extends Action
         $this->config = ArrayHelper::merge($_config, $this->config);
         parent::init();
     }
-    
+
     public function run()
     {
         $action = Yii::$app->request->get('action');
@@ -48,10 +49,6 @@ class UeditorAction extends Action
             case 'listfile':
                 $result = $this->ActList();
                 break;
-            /* 抓取远程文件 */
-            case 'catchimage':
-                $result = $this->ActCrawler();
-                break;
             default:
                 $result = json_encode(array(
                     'state' => '请求地址出错'
@@ -70,8 +67,9 @@ class UeditorAction extends Action
         } else {
             echo $result;
         }
+        exit;
     }
-    
+
     /**
      * 上传
      * @return string
@@ -87,15 +85,6 @@ class UeditorAction extends Action
                     "allowFiles" => $this->config['imageAllowFiles']
                 );
                 $fieldName = $this->config['imageFieldName'];
-                break;
-            case 'uploadscrawl':
-                $config = array(
-                    "pathFormat" => $this->config['scrawlPathFormat'],
-                    "maxSize" => $this->config['scrawlMaxSize'],
-                    "oriName" => "scrawl.png"
-                );
-                $fieldName = $this->config['scrawlFieldName'];
-                $base64 = "base64";
                 break;
             case 'uploadvideo':
                 $config = array(
@@ -131,6 +120,7 @@ class UeditorAction extends Action
         /* 返回数据 */
         return json_encode($up->getFileInfo());
     }
+
     /**
      * 获取已上传的文件列表
      * @return string
@@ -143,14 +133,12 @@ class UeditorAction extends Action
             case 'listfile':
                 $allowFiles = $this->config['fileManagerAllowFiles'];
                 $listSize = $this->config['fileManagerListSize'];
-                $path = $this->config['fileManagerListPath'];
                 break;
             /* 列出图片 */
             case 'listimage':
             default:
                 $allowFiles = $this->config['imageManagerAllowFiles'];
                 $listSize = $this->config['imageManagerListSize'];
-                $path = $this->config['imageManagerListPath'];
         }
         $allowFiles = substr(str_replace(".", "|", join("", $allowFiles)), 1);
         /* 获取参数 */
@@ -158,8 +146,7 @@ class UeditorAction extends Action
         $start = isset($_GET['start']) ? htmlspecialchars($_GET['start']) : 0;
         $end = (int)$start + (int)$size;
         /* 获取文件列表 */
-        $path = $_SERVER['DOCUMENT_ROOT'] . (substr($path, 0, 1) == "/" ? "" : "/") . $path;
-        $files = $this->getfiles($path, $allowFiles);
+        $files = $this->getFiles($allowFiles);
         if (!count($files)) {
             return json_encode(array(
                 "state" => "no match file",
@@ -186,70 +173,26 @@ class UeditorAction extends Action
         ));
         return $result;
     }
-    /**
-     * 抓取远程图片
-     * @return string
-     */
-    protected function ActCrawler()
-    {
-        /* 上传配置 */
-        $config = array(
-            "pathFormat" => $this->config['catcherPathFormat'],
-            "maxSize" => $this->config['catcherMaxSize'],
-            "allowFiles" => $this->config['catcherAllowFiles'],
-            "oriName" => "remote.png"
-        );
-        $fieldName = $this->config['catcherFieldName'];
-        /* 抓取远程图片 */
-        $list = array();
-        if (isset($_POST[$fieldName])) {
-            $source = $_POST[$fieldName];
-        } else {
-            $source = $_GET[$fieldName];
-        }
-        foreach ($source as $imgUrl) {
-            $item = new Uploader($imgUrl, $config, "remote");
-            $info = $item->getFileInfo();
-            array_push($list, array(
-                "state" => $info["state"],
-                "url" => $info["url"],
-                "size" => $info["size"],
-                "title" => htmlspecialchars($info["title"]),
-                "original" => htmlspecialchars($info["original"]),
-                "source" => htmlspecialchars($imgUrl)
-            ));
-        }
-        /* 返回抓取数据 */
-        return json_encode(array(
-            'state' => count($list) ? 'SUCCESS' : 'ERROR',
-            'list' => $list
-        ));
-    }
+
     /**
      * 遍历获取目录下的指定类型的文件
-     * @param $path
      * @param $allowFiles
-     * @param array $files
      * @return array|null
      */
-    protected function getfiles($path, $allowFiles, &$files = array())
+    protected function getFiles($allowFiles)
     {
-        if (!is_dir($path)) return null;
-        if (substr($path, strlen($path) - 1) != '/') $path .= '/';
-        $handle = opendir($path);
-        while (false !== ($file = readdir($handle))) {
-            if ($file != '.' && $file != '..') {
-                $path2 = $path . $file;
-                if (is_dir($path2)) {
-                    $this->getfiles($path2, $allowFiles, $files);
-                } else {
-                    if (preg_match("/\.(" . $allowFiles . ")$/i", $file)) {
-                        $files[] = array(
-                            'url' => substr($path2, strlen($_SERVER['DOCUMENT_ROOT'])),
-                            'mtime' => filemtime($path2)
-                        );
-                    }
-                }
+        $upload = Yii::$app->upload->init();
+        $bucket = $upload->getBucketManager();
+        $marker = null;
+        $limit = 1000;
+        $rs = $bucket->listFiles($upload->bucket, $upload->getPrefix(), $marker, $limit);
+        $files = [];
+        if (!empty($rs[0])) {
+            foreach ($rs[0]['items'] as $v) {
+                $files[] = [
+                    'url' => $upload->domain . '/' . $v['key'],
+                    'mtime' => $v['putTime']
+                ];
             }
         }
         return $files;
