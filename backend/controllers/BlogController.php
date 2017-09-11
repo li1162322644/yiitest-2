@@ -7,6 +7,7 @@ use common\models\BlogCategory;
 use Yii;
 use common\models\Blog;
 use common\models\BlogSearch;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,12 +25,17 @@ class BlogController extends Controller
             'ueditor' => [
                 'class' => 'common\widgets\ueditor\UeditorAction',
             ],
+            'get-region' => [
+                'class' => \chenkby\region\RegionAction::className(),
+                'model' => \common\models\Blog::className()
+            ]
+
         ];
     }
 
     public function allowActions()
     {
-        return ['ueditor'];
+        return ['ueditor', 'site', 'get-region'];
     }
 
     /**
@@ -170,6 +176,27 @@ class BlogController extends Controller
             }
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * Function output the site that you selected.
+     * @param int $pid
+     * @param int $typeid
+     */
+    public function actionSite($pid, $typeid = 0)
+    {
+        $model = new Blog();
+        $model = $model->getCityList($pid);
+
+        if ($typeid == 1) {
+            $aa = "--请选择市--";
+        } else if ($typeid == 2 && $model) {
+            $aa = "--请选择区--";
+        }
+        echo Html::tag('option', $aa, ['value' => 'empty']);
+        foreach ($model as $value => $name) {
+            echo Html::tag('option', Html::encode($name), array('value' => $value));
         }
     }
 }

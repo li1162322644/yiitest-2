@@ -39,6 +39,7 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         ),
         'c' => 
         array (
+            'chenkby\\region\\' => 15,
             'cebe\\markdown\\' => 14,
         ),
         'Q' => 
@@ -99,6 +100,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'dmstr\\' => 
         array (
             0 => __DIR__ . '/..' . '/dmstr/yii2-adminlte-asset',
+        ),
+        'chenkby\\region\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chenkby/yii2-region',
         ),
         'cebe\\markdown\\' => 
         array (

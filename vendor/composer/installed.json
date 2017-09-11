@@ -1330,5 +1330,50 @@
             "webuploader",
             "yii2"
         ]
+    },
+    {
+        "name": "chenkby/yii2-region",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/chenkby/yii2-region.git",
+            "reference": "b377af6986f0372bb0707512e52a7b54f7d323c2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/chenkby/yii2-region/b377af6986f0372bb0707512e52a7b54f7d323c2.zip",
+            "reference": "b377af6986f0372bb0707512e52a7b54f7d323c2",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "time": "2017-02-22T07:06:12+00:00",
+        "type": "yii2-widget",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "chenkby\\region\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "ChenGuanQun",
+                "email": "99912250@qq.com"
+            }
+        ],
+        "description": "Yii2中国省市区三级联动",
+        "keywords": [
+            "city",
+            "district",
+            "province",
+            "region",
+            "yii2"
+        ]
     }
 ]

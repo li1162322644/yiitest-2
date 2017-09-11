@@ -18,6 +18,7 @@ return array(
     'mdm\\admin\\' => array($vendorDir . '/mdmsoft/yii2-admin'),
     'manks\\' => array($vendorDir . '/bailangzhan/yii2-webuploader'),
     'dmstr\\' => array($vendorDir . '/dmstr/yii2-adminlte-asset'),
+    'chenkby\\region\\' => array($vendorDir . '/chenkby/yii2-region'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Qiniu\\' => array($vendorDir . '/qiniu/php-sdk/src/Qiniu'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),

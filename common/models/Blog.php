@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "blog".
@@ -19,6 +21,10 @@ class Blog extends \yii\db\ActiveRecord
 {
     public $category;
     public $file;
+    public $province;
+    public $city;
+    public $area;
+    public $district;
 
     /**
      * @inheritdoc
@@ -34,7 +40,7 @@ class Blog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'title', 'views','category'], 'required'],
+            [['content', 'title', 'views', 'category'], 'required'],
             [['views', 'is_delete'], 'integer'],
             [['title'], 'string', 'max' => 100],
             [['content'], 'string'],
@@ -83,5 +89,32 @@ class Blog extends \yii\db\ActiveRecord
         //返回关联数组，用户下拉的filter实现
         else
             return $dropDownList[$column];
+    }
+
+    /**
+     * @param $pid
+     * @return array
+     */
+    public function getCityList($pid)
+    {
+//        $model = City::findAll(array('pid' => $pid));
+        $model = (new Query())
+            ->select('*')
+            ->from('region')
+            ->where(['parent_id' => $pid])
+            ->all();
+
+        return ArrayHelper::map($model, 'id', 'name');
+    }
+
+    public static function getRegion($parentId = 0)
+    {
+        $model = (new Query())
+            ->select('*')
+            ->from('region')
+            ->where(['parent_id' => $parentId])
+            ->all();
+
+        return ArrayHelper::map($model, 'id', 'name');
     }
 }

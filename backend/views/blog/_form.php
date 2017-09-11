@@ -16,7 +16,7 @@ use common\models\Blog;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model,'content')->widget('common\widgets\ueditor\Ueditor',['options'=>['maximumWords'=>10000,'initialFrameWidth'=>1200,'initialFrameHeight'=>300]]); ?>
+    <?= $form->field($model, 'content')->widget('common\widgets\ueditor\Ueditor', ['options' => ['maximumWords' => 10000, 'initialFrameWidth' => 1200, 'initialFrameHeight' => 300]]); ?>
 
     <?= $form->field($model, 'views')->textInput() ?>
 
@@ -29,9 +29,44 @@ use common\models\Blog;
     ]);
     ?>
 
+    <?/*= $form->field($model, 'province')->dropDownList($model->getCityList(0), [
+        'prompt' => '--请选择省--',
+        'onchange' => '
+            $(".form-group.field-blog-area").hide();
+            $.post("' . yii::$app->urlManager->createUrl('blog/site') . '?typeid=1&pid="+$(this).val(),function(data){
+                $("select#blog-city").html(data);
+            });',]) */?><!--
 
+    <?/*= $form->field($model, 'city')->dropDownList($model->getCityList($model->province), [
+        'prompt' => '--请选择市--',
+        'onchange' => '
+            $(".form-group.field-blog-area").show();
+            $.post("' . yii::$app->urlManager->createUrl('blog/site') . '?typeid=2&pid="+$(this).val(),function(data){
+                $("select#blog-area").html(data);
+            });',]) */?>
 
+    --><?/*= $form->field($model, 'area')->dropDownList($model->getCityList($model->city), ['prompt' => '--请选择区--',]) */?>
 
+    <?= $form->field($model, 'district')->widget(\chenkby\region\Region::className(),[
+        'model'=>$model,
+        'url'=> \yii\helpers\Url::toRoute(['get-region']),
+        'province'=>[
+            'attribute'=>'province',
+            'items'=>Blog::getRegion(),
+            'options'=>['class'=>'form-control form-control-inline','prompt'=>'选择省份']
+        ],
+        'city'=>[
+            'attribute'=>'city',
+            'items'=>Blog::getRegion($model['province']),
+            'options'=>['class'=>'form-control form-control-inline','prompt'=>'选择城市']
+        ],
+        'district'=>[
+            'attribute'=>'district',
+            'items'=>Blog::getRegion($model['city']),
+            'options'=>['class'=>'form-control form-control-inline','prompt'=>'选择县/区']
+        ]
+    ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
