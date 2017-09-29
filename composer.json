@@ -22,7 +22,9 @@
         "mdmsoft/yii2-admin": "~2.0",
         "qiniu/php-sdk": "^7.2",
         "bailangzhan/yii2-webuploader": "dev-master",
-        "chenkby/yii2-region": "dev-master"
+        "chenkby/yii2-region": "dev-master",
+        "php-amqplib/php-amqplib": "2.7.*",
+        "yiisoft/yii2-queue": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

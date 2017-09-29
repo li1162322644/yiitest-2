@@ -16,6 +16,14 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
+            'yii\\queue\\sync\\' => 15,
+            'yii\\queue\\redis\\' => 16,
+            'yii\\queue\\gearman\\' => 18,
+            'yii\\queue\\file\\' => 15,
+            'yii\\queue\\db\\' => 13,
+            'yii\\queue\\beanstalk\\' => 20,
+            'yii\\queue\\amqp\\' => 15,
+            'yii\\queue\\' => 10,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -42,13 +50,25 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
             'chenkby\\region\\' => 15,
             'cebe\\markdown\\' => 14,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\Process\\' => 26,
+        ),
         'Q' => 
         array (
             'Qiniu\\' => 6,
         ),
+        'P' => 
+        array (
+            'PhpAmqpLib\\' => 11,
+        ),
         'F' => 
         array (
             'Faker\\' => 6,
+        ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
         ),
     );
 
@@ -56,6 +76,38 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
+        ),
+        'yii\\queue\\sync\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/sync',
+        ),
+        'yii\\queue\\redis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/redis',
+        ),
+        'yii\\queue\\gearman\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/gearman',
+        ),
+        'yii\\queue\\file\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/file',
+        ),
+        'yii\\queue\\db\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/db',
+        ),
+        'yii\\queue\\beanstalk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/beanstalk',
+        ),
+        'yii\\queue\\amqp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src/drivers/amqp',
+        ),
+        'yii\\queue\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-queue/src',
         ),
         'yii\\gii\\' => 
         array (
@@ -109,13 +161,25 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
         'Qiniu\\' => 
         array (
             0 => __DIR__ . '/..' . '/qiniu/php-sdk/src/Qiniu',
         ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
+        ),
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
+        ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
         ),
     );
 
@@ -136,6 +200,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         ),
         'D' => 
         array (
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
             'Diff' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/php-diff/lib',
