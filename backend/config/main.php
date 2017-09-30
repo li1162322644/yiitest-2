@@ -10,7 +10,7 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'queue'],
     //admin组件
     'modules' => [
         'admin' => [
@@ -29,6 +29,15 @@ return [
         ]
     ],//admin组件
     'components' => [
+        'queue' => [
+            'class' => \yii\queue\amqp\Queue::class,
+            'host' => 'localhost',
+            'port' => 5672,
+            'user' => 'root',
+            'password' => 'root',
+            'queueName' => 'queue',
+//            'serializer' => \yii\queue\serializers\JsonSerializer::class,
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

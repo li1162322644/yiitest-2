@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'controllerNamespace' => 'console\controllers',
     'components' => [
         'log' => [
@@ -19,6 +19,15 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'queue' => [
+            'class' => \yii\queue\amqp\Queue::class,
+            'host' => 'localhost',
+            'port' => 5672,
+            'user' => 'root',
+            'password' => 'root',
+            'queueName' => 'queue',
+//            'serializer' => \yii\queue\serializers\JsonSerializer::class,
         ],
     ],
     'params' => $params,

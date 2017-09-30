@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\components\DownloadJob;
 use common\components\Upload;
 use common\models\BlogCategory;
 use Yii;
@@ -59,6 +60,11 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->queue->push(new DownloadJob([
+            'a' => 1,
+            'b' => 1,
+        ]));
+//        echo $id;die;
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
